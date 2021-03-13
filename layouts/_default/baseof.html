@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    {{ $style := resources.Get "sass/main.scss" | toCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}">
+    <link href=https://use.fontawesome.com/releases/v5.13.1/css/all.css rel=stylesheet>
+
+    <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ .Params.description }}" />
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#824c95">
+    <meta name="msapplication-TileColor" content="#603cba">
+    <meta name="theme-color" content="#824c95">
+</head>
+
+<body>
+    <main id="main">
+        {{ block "main" . }}
+        <!-- The part of the page that begins to differ between templates -->
+        {{ end }}
+    </main>
+
+    <footer id="footer" class="bg-secondary mt-5">
+        <div class="py-4">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+
+                        <!-- Copyright -->
+                        <p class="mb-1 mb-md-0 small">
+                            © 2020-<script>document.write(new Date().getFullYear())</script>&nbsp; <a href="/">breker.ninja</a>
+                        </p>
+
+                    </div>
+                    <div class="col text-end">
+
+                        <!-- Copyright -->
+                        <p class="mb-1 mb-md-0 small">
+                            <a href="/contact/">Contact Us</a>
+                            | <a href="/about/">About Us</a>
+                            | <a href="/terms/">Terms &amp; Conditions</a>
+                            | <a href="/privacy/">Privacy Policy</a>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&flags=gated"></script>
+    {{ $js := resources.Get "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" | minify | fingerprint}}
+    <script src="{{ $js.Permalink }}"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPP8PX7MYT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NPP8PX7MYT');
+    </script>
+
+</body>
+
+</html>

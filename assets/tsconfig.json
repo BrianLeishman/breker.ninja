@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "alwaysStrict": true,
+        "strict": true,
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "allowJs": false,
+        "target": "es5",
+        "noEmitOnError": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "baseUrl": "./",
+        "plugins": [
+            {
+                "name": "typescript-tslint-plugin",
+                "alwaysShowRuleFailuresAsWarnings": false,
+                "configFile": "tslint.json",
+                "suppressWhileTypeErrorsPresent": false,
+                "ignoreDefinitionFiles": true
+            }
+        ]
+    }
+}
