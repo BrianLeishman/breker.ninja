@@ -41,4 +41,4 @@ jobs:
 
       - name: deploy lambda
         working-directory: assets/go/lambda/api
-        run: aws lambda update-function-code --function-name ${{ secrets.MAIN_LAMBDA }} --zip-file fileb://api.zip
+        run: aws lambda update-function-code --function-name brekerAPI --zip-file fileb://api.zip

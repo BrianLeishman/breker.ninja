@@ -1,0 +1,15 @@
+{
+  "name": "breker.ninja",
+  "version": "1.0.0",
+  "description": "breker.ninja",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^5.0.0-beta2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brian Leishman",
+  "license": "ISC"
+}
