@@ -26,7 +26,7 @@ jobs:
 
       - name: go build
         working-directory: assets/go/lambda/api
-        run: go build
+        run: go build -tags=jsoniter
 
       - name: zip function
         working-directory: assets/go/lambda/api
