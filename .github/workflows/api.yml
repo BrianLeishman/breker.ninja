@@ -5,7 +5,7 @@ on:
     branches:
     - master
     paths:
-    - 'assets/lambda/**'
+    - 'assets/go/lambda/**'
     - '.github/workflows/api.yml'
 
 jobs:
