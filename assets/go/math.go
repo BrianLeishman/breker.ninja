@@ -46,11 +46,25 @@ func (a *MovingAverage[T]) Record(n T) {
 	a.sum += n
 }
 
-func (a *MovingAverage[T]) Average() float64 {
+func (a *MovingAverage[T]) Average() T {
 	a.mx.RLock()
 	defer a.mx.RUnlock()
 
-	return float64(a.sum) / float64(T(a.size))
+	return a.sum / T(a.size)
+}
+
+func (a *MovingAverage[T]) Slice() []T {
+	a.mx.RLock()
+	defer a.mx.RUnlock()
+
+	return append([]T{}, a.values...)
+}
+
+func (a *MovingAverage[T]) Size() int {
+	a.mx.RLock()
+	defer a.mx.RUnlock()
+
+	return a.size
 }
 
 func ConvertRange[T Numeric](oldValue, oldMin, oldMax, newMin, newMax T) T {
