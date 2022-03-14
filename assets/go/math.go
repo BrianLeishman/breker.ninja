@@ -76,3 +76,15 @@ func ConvertRange[T Numeric](oldValue, oldMin, oldMax, newMin, newMax T) T {
 	newRange := newMax - newMin
 	return (((oldValue - oldMin) * newRange) / oldRange) + newMin
 }
+
+func Max[T Numeric](values []T) T {
+	var max T
+
+	for _, v := range values {
+		if v > max {
+			max = v
+		}
+	}
+
+	return max
+}
