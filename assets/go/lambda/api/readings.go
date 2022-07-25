@@ -25,7 +25,6 @@ func init() {
 
 func hReadingCreate(c *gin.Context) {
 	var header struct {
-		Time         [4]byte
 		UserID       [12]byte
 		APIKey       [16]byte
 		PlaceID      [12]byte
@@ -116,7 +115,7 @@ func hReadingCreate(c *gin.Context) {
 	sess, err := session.NewSession()
 	writeSvc := timestreamwrite.New(sess)
 
-	currentTimeInSeconds := int64(binary.LittleEndian.Uint32(header.Time[:]))
+	currentTimeInSeconds := time.Now().Unix()
 
 	writeRecordsInput := &timestreamwrite.WriteRecordsInput{
 		DatabaseName: aws.String("breker"),
@@ -155,8 +154,6 @@ func hReadingCreate(c *gin.Context) {
 }
 
 func hReadingSample(c *gin.Context) {
-	now := time.Now()
-
 	userID := xid.New()
 
 	apiKey, _ := uuid.NewRandom()
@@ -171,15 +168,9 @@ func hReadingSample(c *gin.Context) {
 
 	var buf bytes.Buffer
 
-	tBytes := make([]byte, 4)
-	binary.LittleEndian.PutUint32(tBytes, uint32(now.Unix()))
-
-	buf.Write(tBytes)
-
 	buf.Write(userID.Bytes())
 
-	b, _ := apiKey.MarshalBinary()
-	buf.Write(b)
+	buf.Write(apiKey[:])
 
 	buf.Write(placeID.Bytes())
 
@@ -198,6 +189,7 @@ func hReadingSample(c *gin.Context) {
 		rand.Seed(time.Now().UnixNano())
 		enc.PutU32(uint32(rand.Intn(max-min) + min))
 	}
+	enc.Flush()
 
 	// mV
 	min = 100_000
@@ -206,6 +198,7 @@ func hReadingSample(c *gin.Context) {
 		rand.Seed(time.Now().UnixNano())
 		enc.PutU32(uint32(rand.Intn(max-min) + min))
 	}
+	enc.Flush()
 
 	c.Writer.Write(buf.Bytes())
 }

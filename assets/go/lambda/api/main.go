@@ -1,10 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"context"
+	"encoding/hex"
+	"fmt"
 	"log"
 	"os"
 
+	"github.com/Smerity/govarint"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -47,5 +51,14 @@ func main() {
 	} else {
 		log.Println("running locally http://localhost:8085")
 		r.Run(":8085")
+	}
+}
+
+func init() {
+	b, _ := hex.DecodeString("0800000543a80092020f58afc80005b8d8200002f9b8")
+	dec := govarint.NewU32GroupVarintDecoder(bytes.NewReader(b))
+
+	for i := 0; i < 10; i++ {
+		fmt.Println(dec.GetU32())
 	}
 }
